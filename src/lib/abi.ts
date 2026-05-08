@@ -31,6 +31,19 @@ export const COVEIL_MATCHER_ABI = [
     inputs: [{ name: "confirmed", type: "bool" }],
     outputs: [],
   },
+  // ── views ────────────────────────────────────────────────────────────────
+  {
+    name: "sessions",
+    type: "function",
+    stateMutability: "view",
+    inputs: [{ name: "partyA", type: "address" }],
+    outputs: [
+      { name: "partyB", type: "address" },
+      { name: "partyASubmitted", type: "bool" },
+      { name: "partyBSubmitted", type: "bool" },
+      { name: "matchComputed", type: "bool" },
+    ],
+  },
   // ── events ───────────────────────────────────────────────────────────────
   {
     name: "MutualUnlock",

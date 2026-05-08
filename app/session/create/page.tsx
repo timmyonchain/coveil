@@ -8,7 +8,7 @@ import { GitHubLink } from "@/components/GitHubLink";
 import Link from "next/link";
 
 export default function CreateSession() {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const [partyB, setPartyB] = useState("");
   const [txHash, setTxHash] = useState("");
   const { writeContractAsync, isPending } = useWriteContract();
@@ -29,6 +29,13 @@ export default function CreateSession() {
         args: [partyB as `0x${string}`],
       });
       setTxHash(hash);
+      // Persist session context so join/results pages can look up on-chain state
+      if (address) {
+        localStorage.setItem(
+          "coveil_session",
+          JSON.stringify({ partyA: address, partyB })
+        );
+      }
     } catch (e) {
       console.error(e);
     }
@@ -67,8 +74,8 @@ export default function CreateSession() {
                 Session created
               </p>
               <p className="text-white/60 text-sm">
-                Your session has been registered on-chain. Share your address
-                with Party B and ask them to submit their profile.
+                Session registered on-chain. Both parties must now submit
+                encrypted profiles before the match can be computed.
               </p>
               <a
                 href={`https://sepolia.etherscan.io/tx/${txHash}`}
@@ -82,7 +89,7 @@ export default function CreateSession() {
                 href="/session/join"
                 className="inline-flex items-center gap-1.5 bg-indigo-500 hover:bg-indigo-400 text-white px-5 py-2.5 rounded-lg text-sm font-semibold tracking-tight transition-colors"
               >
-                Submit profile
+                Submit your profile
                 <span aria-hidden>→</span>
               </Link>
             </div>
