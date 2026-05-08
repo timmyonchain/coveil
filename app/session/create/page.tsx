@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useWriteContract, useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { COVEIL_MATCHER_ADDRESS, COVEIL_MATCHER_ABI } from "@/lib/abi";
+import { Logo } from "@/components/Logo";
 import Link from "next/link";
 
 export default function CreateSession() {
@@ -10,6 +11,12 @@ export default function CreateSession() {
   const [partyB, setPartyB] = useState("");
   const [txHash, setTxHash] = useState("");
   const { writeContractAsync, isPending } = useWriteContract();
+
+  useEffect(() => {
+    if (txHash) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [txHash]);
 
   async function handleCreate() {
     if (!partyB) return;
@@ -29,11 +36,8 @@ export default function CreateSession() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
       <nav className="flex items-center justify-between px-8 py-5 border-b border-white/[0.08]">
-        <Link
-          href="/"
-          className="text-sm font-semibold tracking-[0.2em] text-white hover:text-white/70 transition-colors"
-        >
-          COVEIL
+        <Link href="/" className="hover:opacity-70 transition-opacity">
+          <Logo />
         </Link>
         <ConnectButton />
       </nav>
@@ -53,7 +57,32 @@ export default function CreateSession() {
             </p>
           </div>
 
-          {!isConnected ? (
+          {txHash ? (
+            <div className="border border-white/[0.08] rounded-xl p-6 space-y-5">
+              <p className="text-xs font-medium text-indigo-400 uppercase tracking-widest">
+                Session created
+              </p>
+              <p className="text-white/60 text-sm">
+                Your session has been registered on-chain. Share your address
+                with Party B and ask them to submit their profile.
+              </p>
+              <a
+                href={`https://sepolia.etherscan.io/tx/${txHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-xs text-white/30 hover:text-white/60 break-all font-mono transition-colors"
+              >
+                {txHash}
+              </a>
+              <Link
+                href="/session/join"
+                className="inline-flex items-center gap-1.5 bg-indigo-500 hover:bg-indigo-400 text-white px-5 py-2.5 rounded-lg text-sm font-semibold tracking-tight transition-colors"
+              >
+                Submit profile
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+          ) : !isConnected ? (
             <div className="border border-white/[0.08] rounded-xl p-8 flex flex-col items-center gap-4">
               <p className="text-sm text-white/40">
                 Connect your wallet to continue
@@ -82,29 +111,6 @@ export default function CreateSession() {
               >
                 {isPending ? "Creating…" : "Create Session"}
               </button>
-
-              {txHash && (
-                <div className="border border-white/[0.08] rounded-lg p-4 space-y-3">
-                  <p className="text-xs font-medium text-indigo-400 uppercase tracking-widest">
-                    Session created
-                  </p>
-                  <a
-                    href={`https://sepolia.etherscan.io/tx/${txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-xs text-white/30 hover:text-white/60 break-all font-mono transition-colors"
-                  >
-                    {txHash}
-                  </a>
-                  <Link
-                    href="/session/join"
-                    className="inline-flex items-center gap-1.5 text-xs text-indigo-400 hover:text-indigo-300 font-medium transition-colors"
-                  >
-                    Submit profile
-                    <span aria-hidden>→</span>
-                  </Link>
-                </div>
-              )}
             </div>
           )}
         </div>

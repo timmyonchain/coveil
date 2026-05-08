@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useWriteContract, useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { COVEIL_MATCHER_ADDRESS, COVEIL_MATCHER_ABI } from "@/lib/abi";
+import { Logo } from "@/components/Logo";
 import Link from "next/link";
 
 export default function Results() {
@@ -35,11 +36,8 @@ export default function Results() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
       <nav className="flex items-center justify-between px-8 py-5 border-b border-white/[0.08]">
-        <Link
-          href="/"
-          className="text-sm font-semibold tracking-[0.2em] text-white hover:text-white/70 transition-colors"
-        >
-          COVEIL
+        <Link href="/" className="hover:opacity-70 transition-opacity">
+          <Logo />
         </Link>
         <ConnectButton />
       </nav>
