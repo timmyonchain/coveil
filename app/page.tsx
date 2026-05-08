@@ -1,20 +1,43 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { GitHubLink } from "@/components/GitHubLink";
 import { COVEIL_MATCHER_ADDRESS } from "@/lib/abi";
+
+const steps = [
+  {
+    num: "01",
+    title: "Create a Session",
+    desc: "Party A invites Party B by wallet address. This registers the session on-chain and establishes the two-party context.",
+  },
+  {
+    num: "02",
+    title: "Submit Encrypted Profile",
+    desc: "Each party encrypts their treasury size, minimum requirement, and risk score. Raw numbers never leave the browser.",
+  },
+  {
+    num: "03",
+    title: "Get Your Score",
+    desc: "The contract computes compatibility on encrypted data. If score ≥ 80, both parties unlock. Nothing else is ever revealed.",
+  },
+];
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col">
+    <main className="bg-black text-white">
       <nav className="flex items-center justify-between px-8 py-5 border-b border-white/[0.08]">
         <Link href="/" className="hover:opacity-70 transition-opacity">
           <Logo />
         </Link>
-        <ConnectButton />
+        <div className="flex items-center gap-4">
+          <GitHubLink />
+          <ConnectButton />
+        </div>
       </nav>
 
-      <div className="flex flex-1 flex-col items-center justify-center px-4">
-        <div className="w-full max-w-lg flex flex-col items-center text-center space-y-10">
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      <section className="flex flex-col items-center text-center px-4 pt-28 pb-24">
+        <div className="w-full max-w-lg space-y-10">
           <div className="space-y-4">
             <p className="text-xs font-medium tracking-[0.25em] text-indigo-400 uppercase">
               Private Match Protocol
@@ -65,7 +88,44 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ── The Problem ───────────────────────────────────────────────────── */}
+      <section className="border-t border-white/[0.08] px-4 py-20">
+        <div className="max-w-2xl mx-auto space-y-5">
+          <p className="text-xs font-medium tracking-[0.25em] text-indigo-400 uppercase">
+            The Problem
+          </p>
+          <p className="text-xl text-white/70 leading-relaxed">
+            DAO treasury negotiations are broken because parties must reveal
+            sensitive financials before trust is established. One side always
+            overexposes.{" "}
+            <span className="text-white font-medium">Coveil fixes this.</span>
+          </p>
+        </div>
+      </section>
+
+      {/* ── How It Works ──────────────────────────────────────────────────── */}
+      <section className="border-t border-white/[0.08] px-4 py-20">
+        <div className="max-w-2xl mx-auto space-y-8">
+          <p className="text-xs font-medium tracking-[0.25em] text-indigo-400 uppercase">
+            How It Works
+          </p>
+          <div className="border border-white/[0.08] rounded-xl overflow-hidden divide-y divide-white/[0.08]">
+            {steps.map(({ num, title, desc }) => (
+              <div key={num} className="flex gap-6 px-6 py-5 bg-white/[0.02]">
+                <span className="text-indigo-500 font-mono text-sm font-semibold shrink-0 pt-0.5">
+                  {num}
+                </span>
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-white">{title}</p>
+                  <p className="text-sm text-white/40 leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

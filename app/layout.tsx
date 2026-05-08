@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Coveil",
   description: "Private compatibility matching powered by FHE",
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({

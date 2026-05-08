@@ -4,6 +4,7 @@ import { useWriteContract, useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { COVEIL_MATCHER_ADDRESS, COVEIL_MATCHER_ABI } from "@/lib/abi";
 import { Logo } from "@/components/Logo";
+import { GitHubLink } from "@/components/GitHubLink";
 import Link from "next/link";
 
 export default function Results() {
@@ -39,7 +40,10 @@ export default function Results() {
         <Link href="/" className="hover:opacity-70 transition-opacity">
           <Logo />
         </Link>
-        <ConnectButton />
+        <div className="flex items-center gap-4">
+          <GitHubLink />
+          <ConnectButton />
+        </div>
       </nav>
 
       <div className="flex flex-1 flex-col items-center justify-center px-4">
