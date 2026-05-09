@@ -1,56 +1,56 @@
-export const COVEIL_MATCHER_ADDRESS =
-  "0x8612788836Df0233A36BA93a58826BdD624Ad81f" as const;
-
 export const COVEIL_MATCHER_ABI = [
-  // ── writes ──────────────────────────────────────────────────────────────
   {
-    name: "createSession",
-    type: "function",
-    stateMutability: "nonpayable",
-    inputs: [{ name: "partyB", type: "address" }],
-    outputs: [],
+    "inputs": [{"internalType": "address","name": "partyB","type": "address"}],
+    "name": "createSession",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    name: "submitProfile",
-    type: "function",
-    stateMutability: "nonpayable",
-    inputs: [{ name: "encryptedData", type: "bytes" }],
-    outputs: [],
+    "inputs": [{"internalType": "bytes","name": "encryptedData","type": "bytes"}],
+    "name": "submitProfile",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    name: "computeMatch",
-    type: "function",
-    stateMutability: "nonpayable",
-    inputs: [],
-    outputs: [],
+    "inputs": [],
+    "name": "computeMatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    name: "confirmResult",
-    type: "function",
-    stateMutability: "nonpayable",
-    inputs: [{ name: "confirmed", type: "bool" }],
-    outputs: [],
+    "inputs": [{"internalType": "bool","name": "result","type": "bool"}],
+    "name": "confirmResult",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
-  // ── views ────────────────────────────────────────────────────────────────
   {
-    name: "sessions",
-    type: "function",
-    stateMutability: "view",
-    inputs: [{ name: "partyA", type: "address" }],
-    outputs: [
-      { name: "partyB", type: "address" },
-      { name: "partyASubmitted", type: "bool" },
-      { name: "partyBSubmitted", type: "bool" },
-      { name: "matchComputed", type: "bool" },
+    "inputs": [{"internalType": "address","name": "partyA","type": "address"}],
+    "name": "sessions",
+    "outputs": [
+      {"internalType": "address","name": "partyA","type": "address"},
+      {"internalType": "address","name": "partyB","type": "address"},
+      {"internalType": "bool","name": "partyASubmitted","type": "bool"},
+      {"internalType": "bool","name": "partyBSubmitted","type": "bool"},
+      {"internalType": "bool","name": "matchComputed","type": "bool"},
+      {"internalType": "uint256","name": "matchScore","type": "uint256"}
     ],
+    "stateMutability": "view",
+    "type": "function"
   },
-  // ── events ───────────────────────────────────────────────────────────────
   {
-    name: "MutualUnlock",
-    type: "event",
-    inputs: [
-      { name: "partyA", type: "address", indexed: true },
-      { name: "partyB", type: "address", indexed: true },
+    "anonymous": false,
+    "inputs": [
+      {"indexed": true,"internalType": "address","name": "partyA","type": "address"},
+      {"indexed": true,"internalType": "address","name": "partyB","type": "address"},
+      {"indexed": false,"internalType": "uint256","name": "score","type": "uint256"}
     ],
-  },
-] as const;
+    "name": "MutualUnlock",
+    "type": "event"
+  }
+] as const
+
+export const COVEIL_MATCHER_ADDRESS = '0x8612788836Df0233A36BA93a58826BdD624Ad81f' as const
